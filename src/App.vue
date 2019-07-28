@@ -6,12 +6,21 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import TheHeader from '@/components/TheHeader.vue';
 
 export default {
   name: 'App',
   components: {
     TheHeader,
+  },
+  async created() {
+    await this.fetchForm();
+  },
+  methods: {
+    ...mapActions({
+      fetchForm: 'form/fetchForm',
+    }),
   },
 };
 </script>
