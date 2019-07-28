@@ -3,13 +3,12 @@ module.exports = {
   env: {
     node: true,
   },
-  extends: [
-    'plugin:vue/recommended',
-    '@vue/airbnb',
-  ],
+  extends: ['plugin:vue/recommended', '@vue/airbnb'],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'consistent-return': 'off',
+    'vue/return-in-computed-property': 'off',
   },
   parserOptions: {
     parser: 'babel-eslint',
