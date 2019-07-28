@@ -29,6 +29,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+::selection {
+  background: @color-primary;
+  color: @color-white;
+}
+::-moz-selection {
+  background: @color-primary;
+  color: @color-white;
+}
+
 #app {
   text-align: center;
   color: #2c3e50;
