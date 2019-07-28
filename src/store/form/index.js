@@ -1,11 +1,11 @@
-import store from './store';
+import state from './state';
 import mutations from './mutations';
 import actions from './actions';
 
 export default {
   name: 'form',
   namespaced: true,
-  store,
+  state,
   mutations,
   actions,
 };
