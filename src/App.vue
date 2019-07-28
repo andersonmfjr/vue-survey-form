@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import 'animate.css/animate.min.css';
 import { mapActions } from 'vuex';
 import TheHeader from '@/components/TheHeader.vue';
 
@@ -28,6 +29,7 @@ export default {
 <style lang="less">
 html {
   font-size: 10px;
+  height: 100%;
 }
 
 body {
@@ -36,6 +38,7 @@ body {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100%;
 }
 
 ::selection {
@@ -48,18 +51,36 @@ body {
 }
 
 #app {
-  text-align: center;
-  color: #2c3e50;
+  height: 100%;
 }
 
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.vue-checkbox--checked {
+  color: @color-primary;
+}
+
+.vue-checkbox--checked .vue-checkbox__inner {
+  background-color: @color-primary;
+  border-color: @color-primary;
+}
+
+.vue-checkbox--checked.vue-checkbox--bordered {
+  border-color: @color-primary;
+}
+
+.vue-input__inner:focus {
+  border-color: @color-primary;
+}
+
+.vue-radio--checked {
+  color: @color-primary;
+}
+
+.vue-radio--checked .vue-radio__inner {
+  background-color: @color-primary;
+  border-color: @color-primary;
+}
+
+.vue-radio--checked.vue-radio--bordered {
+  border-color: @color-primary;
 }
 </style>
