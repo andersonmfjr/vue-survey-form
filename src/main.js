@@ -3,6 +3,10 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 
+import FontAwesome from './assets/fontawesome';
+
+Vue.use('fa-icon', FontAwesome);
+
 Vue.config.productionTip = false;
 
 new Vue({
