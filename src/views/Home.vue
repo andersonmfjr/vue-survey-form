@@ -31,10 +31,10 @@
       </p>
 
       <div class="button-container">
-        <router-link to="/about">
-          <button>
+        <router-link to="/survey">
+          <v-button>
             Responder questionário
-          </button>
+          </v-button>
         </router-link>
       </div>
     </section>
@@ -42,8 +42,13 @@
 </template>
 
 <script>
+import VButton from '@/components/VButton.vue';
+
 export default {
   name: 'Home',
+  components: {
+    VButton,
+  },
 };
 </script>
 
@@ -54,15 +59,25 @@ export default {
   justify-content: space-between;
   margin-top: @base-margin * 2;
   padding: @base-padding * 2;
+
+  @media screen and (max-width: 800px) {
+    flex-direction: column;
+  };
 }
 
 .pie-graph {
   width: 400px;
   margin-right: @base-margin * 2;
+
+  @media screen and (max-width: 800px) {
+    margin-bottom: @base-margin * 2;
+    width: 80%
+  };
 }
 
 section {
   text-align: left;
+
   h1 {
     color: @color-primary;
     font-size: 2rem;
@@ -79,18 +94,9 @@ section {
     align-items: center;
     justify-content: center;
 
-    button {
-      padding: @base-padding;
-      border-radius: @base-radius;
-      border: none;
-      background-color: @color-primary;
-      cursor: pointer;
-      color: @color-white;
-
-      &:hover {
-        background-color: @color-secondary;
-      }
-    }
+    @media screen and (max-width: 800px) {
+      margin-top: @base-margin * 2;
+    };
   }
 }
 </style>
