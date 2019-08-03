@@ -10080,11 +10080,6 @@ vue-router@^3.0.1, vue-router@^3.0.3:
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.0.7.tgz#b36ca107b4acb8ff5bc4ff824584059c23fcb87b"
   integrity sha512-utJ+QR3YlIC/6x6xq17UMXeAfxEvXA0VKD3PiSio7hBOZNusA1jXcbxZxVEfJunLp48oonjTepY8ORoIlRx/EQ==
 
-vue-simple-progress@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/vue-simple-progress/-/vue-simple-progress-1.1.0.tgz#7dd1afbf94dfc8a3cdee599a6345d7e5a1913944"
-  integrity sha512-SnMBQ0rAzlVvhDs9uOoLPcu3POP8nhu5lINTghhSRSoS1qsBEhrWvVpADAEVI3w7IgjcRZy5gvJqnoufZBMDdg==
-
 vue-style-loader@^4.1.0:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/vue-style-loader/-/vue-style-loader-4.1.2.tgz#dedf349806f25ceb4e64f3ad7c0a44fba735fcf8"
@@ -10110,6 +10105,11 @@ vue@^2.6.0, vue@^2.6.10:
   version "2.6.10"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.10.tgz#a72b1a42a4d82a721ea438d1b6bf55e66195c637"
   integrity sha512-ImThpeNU9HbdZL3utgMCq0oiMzAkt1mcgy3/E6zWC/G6AaQoeuFdsl9nDhTDU3X1R6FK7nsIUuRACVcjI+A2GQ==
+
+vuejs-progress-bar@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/vuejs-progress-bar/-/vuejs-progress-bar-1.1.1.tgz#1127b8f09b70f2928b40b75b870123c02fe55574"
+  integrity sha512-/BTMUkBlbRvVQTdrfwtpXeknOUJirlqPSY8sR/UC/FTzwzyv7uti0pRCRr7vedLg35a733EYwwfF1Gznc5gGsA==
 
 vuex@^3.0.1:
   version "3.1.1"
