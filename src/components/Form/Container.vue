@@ -1,51 +1,74 @@
 <template>
-  <form
-    @submit.prevent="submit"
-  >
-    <template v-for="(field, key) in formFields">
-      <form-group
-        :key="`${_uid}-${field.name}`"
-        :field-id="key"
-      >
-        <div class="form-area">
-          <form-label
-            :for="`${_uid}-${field.name}`"
-            :label="field.label"
-            :order="key"
-            :validation="field.validation"
-          />
-          <Component
-            :is="field.component"
-            :id="`${_uid}-${field.name}`"
-            v-model="responses[field.name]"
-            v-validate="field.validation"
-            :field="field.name"
-            v-bind="{ ...field.options.attrs }"
-            :name="`${field.name}`"
-            :type="field.type"
-            :data-vv-as="field.label"
-            :options="!!field.options.choices ? field.options.choices : false"
-            @input="updateField({ key: field.name, value: responses[field.name] })"
-          />
-        </div>
-        <form-error
-          :fields="fields"
-          :field-name="field.name"
+  <div>
+    <form
+      v-if="!loading && success"
+      @submit.prevent="submit"
+    >
+      <template v-for="(field, key) in formFields">
+        <form-group
+          :key="field.name"
+          :field-id="key"
         >
-          {{ errors.first(field.name) }}
-        </form-error>
-      </form-group>
-    </template>
+          <div class="form-area">
+            <form-label
+              :for="field.name"
+              :label="field.label"
+              :order="key"
+              :validation="field.validation"
+            />
+            <Component
+              :is="field.component"
+              :id="field.name"
+              v-model="responses[field.name]"
+              v-validate="field.validation"
+              :field="field.name"
+              v-bind="{ ...field.options.attrs }"
+              :name="field.name"
+              :type="field.type"
+              :data-vv-as="field.label"
+              :options="!!field.options.choices ? field.options.choices : false"
+              @input="updateField({ key: field.name, value: responses[field.name] })"
+            />
+          </div>
+          <form-error
+            :fields="fields"
+            :field-name="field.name"
+          >
+            {{ errors.first(field.name) }}
+          </form-error>
+        </form-group>
+      </template>
 
-    <form-navigation
-      @back="back"
-      @next="next"
-    />
-  </form>
+      <form-navigation
+        @back="back"
+        @next="next"
+      />
+    </form>
+
+    <div
+      v-if="loading"
+      class="information__container"
+    >
+      <v-icon
+        name="spinner"
+        scale="3"
+        spin
+      />
+    </div>
+
+    <div
+      v-if="!loading && error"
+      class="information__container"
+    >
+      <span class="information__error">
+        Ocorreu algum erro, por favor recarregue a página e tente novamente.
+      </span>
+    </div>
+  </div>
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapMutations, mapActions } from 'vuex';
 import { TimelineLite, Elastic } from 'gsap';
 import { UPDATE_FORM_DATA, UPDATE_FORM_STATE } from '@/store/form/types';
 import getComponent from './utils/getComponent';
@@ -77,6 +100,15 @@ export default {
     responses() {
       return this.$store.state.form.responses;
     },
+    loading() {
+      return this.$store.state.form.fetching;
+    },
+    success() {
+      return this.$store.state.form.fetchSuccess;
+    },
+    error() {
+      return this.$store.state.form.fetchError;
+    },
     activeFieldName() {
       return this.fields[this.formFields[this.formState.activeField].name];
     },
@@ -104,17 +136,25 @@ export default {
         this.updateFormState({ key: 'isValid', value: false });
       }
     },
+    success(value) {
+      if (value) {
+        this.formFields = this.firestoreData.map((field) => {
+          const component = getComponent(field.type);
+          return { ...field, component };
+        });
+      }
+    },
   },
-  created() {
-    this.formFields = this.firestoreData.map((field) => {
-      const component = getComponent(field.type);
-      return { ...field, component };
-    });
+  async created() {
+    await this.fetchForm();
   },
   methods: {
     ...mapMutations({
       updateField: `form/${UPDATE_FORM_DATA}`,
       updateFormState: `form/${UPDATE_FORM_STATE}`,
+    }),
+    ...mapActions({
+      fetchForm: 'form/fetchForm',
     }),
     next() {
       this.updateFormState({ key: 'isNext', value: true });
@@ -159,11 +199,24 @@ export default {
 </script>
 
 <style lang="less" scoped>
-form {
+form, .information__container {
   min-height: 100vh - 15rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.information {
+  &__container {
+    color: @color-primary;
+  }
+
+  &__error {
+    color: @color-required;
+    font-size: 1.6rem;
+    text-align: center;
+    padding: @base-padding;
+  }
 }
 </style>
