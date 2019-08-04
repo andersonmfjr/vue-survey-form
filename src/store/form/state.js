@@ -7,5 +7,8 @@ export default {
     isComplete: false,
     isValid: false,
   },
+  fetching: false,
+  fetchError: false,
+  fetchSuccess: false,
   responses: {},
 };

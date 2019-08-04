@@ -5,7 +5,8 @@
         v-if="fieldValid"
         class="form-button"
       >
-        Próxima pergunta
+        <span v-if="activeQuestion + 1 !== formLength">Próxima pergunta</span>
+        <span v-else>Revisar questões</span>
       </v-button>
 
       <span
@@ -45,6 +46,12 @@ export default {
   computed: {
     fieldValid() {
       return this.formFields[this.fieldName].valid;
+    },
+    formLength() {
+      return this.$store.state.form.formState.formLength;
+    },
+    activeQuestion() {
+      return this.$store.state.form.formState.activeField;
     },
   },
   watch: {
