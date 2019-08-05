@@ -1,6 +1,6 @@
 {
   "name": "survey",
-  "version": "0.1.0",
+  "version": "0.9.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -9,9 +9,16 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "animate.css": "^3.7.2",
     "core-js": "^2.6.5",
+    "firebase": "^6.3.3",
+    "gsap": "^2.1.3",
+    "vee-validate": "^2.2.13",
+    "vfc": "^2.0.0",
     "vue": "^2.6.10",
+    "vue-awesome": "^3.5.4",
     "vue-router": "^3.0.3",
+    "vuejs-progress-bar": "^1.1.1",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
@@ -28,6 +35,7 @@
     "eslint-plugin-vue": "^5.0.0",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
+    "style-resources-loader": "^1.2.1",
     "vue-template-compiler": "^2.6.10"
   }
 }
