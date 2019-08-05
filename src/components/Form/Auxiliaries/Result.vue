@@ -50,6 +50,10 @@ export default {
       deep: true,
     },
   },
+  mounted() {
+    this.questions = this.formData
+      .map(el => ({ id: el.id, label: el.label, value: this.responses[el.id] || '' }));
+  },
 };
 </script>
 
