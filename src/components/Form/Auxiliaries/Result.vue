@@ -42,9 +42,12 @@ export default {
     },
   },
   watch: {
-    responses(newValue) {
-      this.questions = this.formData
-        .map(el => ({ id: el.id, label: el.label, value: newValue[el.id] || '' }));
+    responses: {
+      handler(newValue) {
+        this.questions = this.formData
+          .map(el => ({ id: el.id, label: el.label, value: newValue[el.id] || '' }));
+      },
+      deep: true,
     },
   },
 };
