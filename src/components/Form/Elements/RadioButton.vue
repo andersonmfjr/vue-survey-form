@@ -51,5 +51,8 @@ export default {
   display: block;
   margin-left: 0;
   margin-bottom: @base-margin / 2;
+  height: fit-content;
+  display: flex;
+  align-items: center;
 }
 </style>
