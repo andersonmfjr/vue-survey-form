@@ -22,6 +22,7 @@
               v-model="responses[field.id]"
               v-validate="field.validation"
               :field="field.name"
+              :field-id="field.id"
               v-bind="{ ...field.options.attrs }"
               :name="field.name"
               :type="field.type"
@@ -44,7 +45,7 @@
         @next="next"
       />
 
-      <form-result v-if="isComplete" />
+      <form-result />
     </form>
 
     <div

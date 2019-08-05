@@ -7,7 +7,7 @@
         class="required"
       >*
       </span>
-      {{ label }}
+      {{ label }}:
     </span>
   </label>
 </template>

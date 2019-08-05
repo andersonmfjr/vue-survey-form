@@ -24,14 +24,14 @@ export default {
       type: [String, Number],
       required: true,
     },
-    field: {
-      type: String,
+    fieldId: {
+      type: [String, Number],
       required: true,
     },
   },
   data() {
     return {
-      selectedValue: this.$store.state.form.responses[this.field],
+      selectedValue: this.$store.state.form.responses[this.fieldId],
     };
   },
   watch: {
