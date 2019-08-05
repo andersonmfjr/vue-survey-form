@@ -16,14 +16,14 @@ export default {
       required: false,
       default: '',
     },
-    field: {
-      type: String,
+    fieldId: {
+      type: [String, Number],
       required: true,
     },
   },
   data() {
     return {
-      textAreaValue: this.$store.state.form.responses[this.field],
+      textAreaValue: this.$store.state.form.responses[this.fieldId],
     };
   },
   watch: {

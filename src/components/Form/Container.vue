@@ -19,15 +19,16 @@
             <Component
               :is="field.component"
               :id="field.name"
-              v-model="responses[field.name]"
+              v-model="responses[field.id]"
               v-validate="field.validation"
               :field="field.name"
+              :field-id="field.id"
               v-bind="{ ...field.options.attrs }"
               :name="field.name"
               :type="field.type"
               :data-vv-as="field.label"
               :options="!!field.options.choices ? field.options.choices : false"
-              @input="updateField({ key: field.name, value: responses[field.name] })"
+              @input="handleResponse(field)"
             />
           </div>
           <form-error
@@ -43,6 +44,8 @@
         @back="back"
         @next="next"
       />
+
+      <form-result />
     </form>
 
     <div
@@ -70,7 +73,7 @@
 <script>
 import { mapMutations, mapActions } from 'vuex';
 import { TimelineLite, Elastic } from 'gsap';
-import { UPDATE_FORM_DATA, UPDATE_FORM_STATE } from '@/store/form/types';
+import { UPDATE_FORM_DATA, UPDATE_FORM_STATE, RESET_FETCH_STATUS } from '@/store/form/types';
 import getComponent from './utils/getComponent';
 
 // Form Components
@@ -78,6 +81,7 @@ import FormLabel from './Elements/Label.vue';
 import FormGroup from './Auxiliaries/Group.vue';
 import FormError from './Auxiliaries/Error.vue';
 import FormNavigation from './Auxiliaries/Navigation.vue';
+import FormResult from './Auxiliaries/Result.vue';
 
 export default {
   name: 'FormContainer',
@@ -89,6 +93,7 @@ export default {
     FormGroup,
     FormError,
     FormNavigation,
+    FormResult,
   },
   computed: {
     firestoreData() {
@@ -96,6 +101,9 @@ export default {
     },
     formState() {
       return this.$store.state.form.formState;
+    },
+    isComplete() {
+      return this.$store.state.form.formState.isComplete;
     },
     responses() {
       return this.$store.state.form.responses;
@@ -113,12 +121,12 @@ export default {
       return this.fields[this.formFields[this.formState.activeField].name];
     },
     isCurrentFieldValid() {
-      if (!this.isLastField) {
+      if (this.isLastField) {
         return this.activeFieldName && this.activeFieldName.valid;
       }
     },
     isLastField() {
-      return this.formState.activeField === this.formState.formLength - 1;
+      return this.formState.activeField < this.formState.formLength;
     },
   },
   watch: {
@@ -148,17 +156,23 @@ export default {
   async created() {
     await this.fetchForm();
   },
+  destroyed() {
+    this.resetFetchStatus();
+  },
   methods: {
     ...mapMutations({
       updateField: `form/${UPDATE_FORM_DATA}`,
       updateFormState: `form/${UPDATE_FORM_STATE}`,
+      resetFetchStatus: `form/${RESET_FETCH_STATUS}`,
     }),
     ...mapActions({
       fetchForm: 'form/fetchForm',
     }),
+    handleResponse(field) {
+      this.updateField({ key: field.id, value: this.responses[field.id] });
+    },
     next() {
       this.updateFormState({ key: 'isNext', value: true });
-
       if (this.isCurrentFieldValid) {
         this.proceed();
       } else {
@@ -180,7 +194,7 @@ export default {
       }
     },
     proceed() {
-      if (!this.isLastField) {
+      if (this.isLastField) {
         const value = this.formState.activeField + 1;
         this.updateFormState({ key: 'activeField', value });
       }

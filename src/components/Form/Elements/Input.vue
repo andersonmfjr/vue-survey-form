@@ -14,14 +14,14 @@ export default {
       type: String,
       required: true,
     },
-    field: {
-      type: String,
+    fieldId: {
+      type: [String, Number],
       required: true,
     },
   },
   data() {
     return {
-      value: this.$store.state.form.responses[this.field],
+      value: this.$store.state.form.responses[this.fieldId],
     };
   },
   watch: {
